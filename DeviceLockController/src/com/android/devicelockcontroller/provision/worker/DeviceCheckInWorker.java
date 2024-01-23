@@ -29,6 +29,7 @@ import com.android.devicelockcontroller.provision.grpc.GetDeviceCheckInStatusGrp
 import com.android.devicelockcontroller.util.LogUtil;
 
 import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListeningExecutorService;
 
 /**
  * A worker class dedicated to execute the check-in operation for device lock program.
@@ -39,6 +40,12 @@ public final class DeviceCheckInWorker extends AbstractCheckInWorker {
 
     public DeviceCheckInWorker(@NonNull Context context,
             @NonNull WorkerParameters workerParams) {
+        super(context, workerParams);
+        mCheckInHelper = new DeviceCheckInHelper(context);
+    }
+
+    public DeviceCheckInWorker(@NonNull Context context, @NonNull WorkerParameters workerParams, 
+            @NonNull ListeningExecutorService executor) {
         super(context, workerParams);
         mCheckInHelper = new DeviceCheckInHelper(context);
     }
